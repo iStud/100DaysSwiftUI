@@ -4,6 +4,7 @@
         <page name='Initializers'/>
         <page name='Class'/>
         <page name='Copy'/>
+        <page name='CheckPoint'/>
         <page name='deinitializer'/>
     </pages>
 </playground>
