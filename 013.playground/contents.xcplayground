@@ -4,5 +4,6 @@
         <page name='Extension'/>
         <page name='Protocol'/>
         <page name='protocol extensions'/>
+        <page name='check point'/>
     </pages>
 </playground>
