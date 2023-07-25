@@ -40,10 +40,6 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                }
-                
-                Section {
                    
                     Picker("Tip percentage", selection: $tipPercentage) {
                         ForEach(tipPercentages,id:\.self) {
@@ -54,6 +50,12 @@ struct ContentView: View {
                 }header: {
                     Text("How much tip do you want to leave?")
                 }
+                
+                Section {
+                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                }
+                
+
             }
             .navigationTitle("WeSplit")
             .toolbar {
