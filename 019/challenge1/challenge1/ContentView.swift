@@ -17,7 +17,6 @@ struct ContentView: View {
         self.types = [String](lengths.keys)
     }
     
-    // 1m 1000m 0.30m 0.91m 1609.34 m
     @State private var type = "meters"
     @State private var convertType = "kilometers"
     @State private var inputValue = 10.0
@@ -25,9 +24,8 @@ struct ContentView: View {
     
     var convertValue:String{
         
-        let typleValue = Double(lengths[type]!)
-        let convertValue = Double(lengths[convertType]!)
-        print("\(inputValue) \(typleValue) \(convertValue)")
+        let typleValue = Double(lengths[type,default:1.0])
+        let convertValue = Double(lengths[convertType,default:1000.0])
         return String(format: "%.2f",inputValue * typleValue / convertValue)
     }
     
@@ -57,7 +55,6 @@ struct ContentView: View {
                 }
                 
                 Section{
-
                     Text(convertValue)
                 }header: {
                     Text("OutPut")
