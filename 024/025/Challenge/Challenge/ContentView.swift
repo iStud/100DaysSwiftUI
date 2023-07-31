@@ -15,6 +15,20 @@ struct ContentView: View {
     @State private var questions = 0;
     @State private var isHidden = false
     @State private var showAlert = false
+    private let total = 10
+    
+    var win : Int {
+        
+        if correctAnswer == 0{
+            return 2
+        }else if correctAnswer == 1{
+            return 0
+        }else{
+            return 1
+        }
+        
+    }
+    
     
     var body: some View {
         VStack {
@@ -62,14 +76,14 @@ struct ContentView: View {
     func btnClic(_ number:Int) {
         
         questions += 1
-        if(questions>10){
+        if(questions>total){
             showAlert = true
             isHidden = true
             return
         }
         
 
-        if number == correctAnswer {
+        if number == win {
             score += 1
         }else{
             score -= 1
@@ -77,7 +91,7 @@ struct ContentView: View {
         }
         correctAnswer = Int.random(in: 0...2)
         
-        if questions == 10 {
+        if questions == total {
             isHidden = true
             showAlert = true
         }
