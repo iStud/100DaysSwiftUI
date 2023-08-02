@@ -11,6 +11,7 @@
 		1F54F2182A79FA7200C009CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F54F2172A79FA7200C009CD /* ContentView.swift */; };
 		1F54F21A2A79FA7700C009CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F54F2192A79FA7700C009CD /* Assets.xcassets */; };
 		1F54F21D2A79FA7700C009CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F54F21C2A79FA7700C009CD /* Preview Assets.xcassets */; };
+		1F54F2242A7A041900C009CD /* SleepCalculator.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1F54F2232A7A041900C009CD /* SleepCalculator.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		1F54F2172A79FA7200C009CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1F54F2192A79FA7700C009CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F54F21C2A79FA7700C009CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1F54F2232A7A041900C009CD /* SleepCalculator.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SleepCalculator.mlmodel; path = ../../../026/ML/SleepCalculator.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 				1F54F2152A79FA7200C009CD /* SleepApp.swift */,
 				1F54F2172A79FA7200C009CD /* ContentView.swift */,
 				1F54F2192A79FA7700C009CD /* Assets.xcassets */,
+				1F54F2232A7A041900C009CD /* SleepCalculator.mlmodel */,
 				1F54F21B2A79FA7700C009CD /* Preview Content */,
 			);
 			path = Sleep;
@@ -139,6 +142,7 @@
 			files = (
 				1F54F2182A79FA7200C009CD /* ContentView.swift in Sources */,
 				1F54F2162A79FA7200C009CD /* SleepApp.swift in Sources */,
+				1F54F2242A7A041900C009CD /* SleepCalculator.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
