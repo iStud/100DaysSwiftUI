@@ -36,7 +36,6 @@ struct ContentView: View {
             let prediction = try model.prediction(wake: Double(hour+minute), estimatedSleep: sleepAmount, coffee: Double(coffeeAmount))
             let sleepTime = wakeUp - prediction.actualSleep
             
-
             time = sleepTime.formatted(date: .omitted, time: .shortened)
             
         } catch  {
@@ -53,10 +52,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             Form {
-                
+            
                 Section {
                     DatePicker("Please enter a time",selection: $wakeUp,displayedComponents: .hourAndMinute)
-                        .labelsHidden()
                 }header: {
                     Text("When do you want to wake up")
                 }
