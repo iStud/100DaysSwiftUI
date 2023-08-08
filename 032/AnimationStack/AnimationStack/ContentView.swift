@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var enabled = false
-    @State private var animationAmount = 1.0
+    @State private var animationAmount = 0.0
     
     
     var body: some View {
@@ -19,20 +19,31 @@ struct ContentView: View {
         
         return VStack {
             
-            Stepper("Scale amount",value: $animationAmount.animation(
-                .easeInOut(duration: 1)
-                .repeatCount(3,autoreverses: true)
-            ),in: 1...10)
-            Spacer()
+//            Stepper("Scale amount",value: $animationAmount.animation(
+//                .easeInOut(duration: 1)
+//                .repeatCount(3,autoreverses: true)
+//            ),in: 1...10)
+//            Spacer()
+//
+//            Button("Tap me") {
+//                animationAmount += 1
+//            }
+//            .padding(40)
+//            .background(.red)
+//            .foregroundColor(.white)
+//            .clipShape(Circle())
+//            .scaleEffect(animationAmount)
             
             Button("Tap me") {
-                animationAmount += 1
+                withAnimation(.interpolatingSpring(stiffness: 5, damping: 1)) {
+                    animationAmount += 360
+                }
             }
-            .padding(40)
-            .background(.red)
+            .padding(50)
+            .background(.blue)
             .foregroundColor(.white)
             .clipShape(Circle())
-            .scaleEffect(animationAmount)
+            .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 1, z: 0))
             
         }
     }
