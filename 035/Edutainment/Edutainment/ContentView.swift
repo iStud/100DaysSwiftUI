@@ -9,23 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     
+    let times = [5, 10, 20]
     @State private var  x = 2;
     @State private var  y = 12;
-    let times = [5, 10, 20]
     @State private var defaultTime = 5
     @State private var currentTime = 1
+    @State private var a = 0
+    @State private var b = 0
+    @State private var answer = 0
+
+
     
-    private var a:Int {
-        Int.random(in: x...y)
-    }
-    private var b:Int {
-        Int.random(in: x...y)
-    }
-    
-    private var value:Int{
-       return a*b
-    }
-    
+
     var body: some View {
         NavigationView{
             
@@ -51,6 +46,10 @@ struct ContentView: View {
                     
                     Button("Start") {
                         
+                        a = Int.random(in: 1...x)
+                        b = Int.random(in: 1...y)
+                        answer = a * b
+                        print("\(a),\(b)")
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     
@@ -62,13 +61,14 @@ struct ContentView: View {
                     }
                     
                     Section{
-                        Text("\(a)*\(b)")
+
+                        Text("\(a) * \(b)")
                     }
                 
                     Section{
                         
-                    
-                        Text("\(value)")
+                        
+                        Text("\(answer)")
                         Text("")
                         Text("")
                         Text("")
