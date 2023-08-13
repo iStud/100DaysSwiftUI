@@ -12,19 +12,20 @@ struct ContentView: View {
     let times = [5, 10, 20]
     @State private var  x = 2;
     @State private var  y = 12;
-    @State private var defaultTime = 5
-    @State private var currentTime = 1
+    @State private var defaultCount = 5
+    @State private var currentCount = 0
     @State private var a = 0
     @State private var b = 0
     @State private var answer = 0
-
+    @State private var score = 0
+    @State private var arr:[Int] = []
 
     
 
     var body: some View {
         NavigationView{
             
-            VStack{
+            ZStack{
                 
                 Form {
                     Section {
@@ -35,7 +36,7 @@ struct ContentView: View {
                     }
                     
                     Section {
-                        Picker("Select practice times", selection: $defaultTime) {
+                        Picker("Select practice times", selection: $defaultCount) {
                             ForEach(times,id:\.self) {
                                 Text("\($0)")
                             }
@@ -45,11 +46,7 @@ struct ContentView: View {
                     }
                     
                     Button("Start") {
-                        
-                        a = Int.random(in: 1...x)
-                        b = Int.random(in: 1...y)
-                        answer = a * b
-                        print("\(a),\(b)")
+                        startGame()
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     
@@ -57,7 +54,7 @@ struct ContentView: View {
                 
                 Form {
                     Section{
-                        Text("Progress rate:\(currentTime)/20")
+                        Text("Progress rate:\(currentCount)/20")
                     }
                     
                     Section{
@@ -67,11 +64,30 @@ struct ContentView: View {
                 
                     Section{
                         
+                        ForEach(arr, id: \.self) { number in
+                            
+                            Button("\(number)") {
+                                
+                                if number == answer {
+                                    score += 1
+                                }
+                                
+                            }
+                            .foregroundColor(.black)
+                        }
+                    }
+                    
+                    Section{
                         
-                        Text("\(answer)")
-                        Text("")
-                        Text("")
-                        Text("")
+                        Button("Next") {
+                        
+                            startGame()
+                        }
+                    }
+                    
+                    Section{
+                        
+                        Text("score: \(score)")
                     }
 
                 }
@@ -80,6 +96,23 @@ struct ContentView: View {
             .navigationTitle("Edutainment")
             
         }
+    }
+    
+    func startGame() {
+        
+        if(currentCount >= defaultCount){
+            return
+        }
+        
+        a = Int.random(in: 1...x)
+        b = Int.random(in: 1...y)
+        answer = a * b
+        arr = [answer,answer-1,answer+1,answer+2].shuffled()
+        currentCount += 1
+
+        
+        print("\(a),\(b),\(arr)")
+        
     }
 }
 
