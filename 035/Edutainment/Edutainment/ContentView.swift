@@ -19,7 +19,8 @@ struct ContentView: View {
     @State private var answer = 0
     @State private var score = 0
     @State private var arr:[Int] = []
-
+    @State private var hideForm = false
+    @State private var showAlert = false
     
 
     var body: some View {
@@ -27,69 +28,78 @@ struct ContentView: View {
             
             ZStack{
                 
-                Form {
-                    Section {
-                        Stepper("\(x)", value:$x,in:2...12)
-                        Stepper("\(y)", value:$y,in:2...12)
-                    }header: {
-                        Text("multiplication tables")
-                    }
-                    
-                    Section {
-                        Picker("Select practice times", selection: $defaultCount) {
-                            ForEach(times,id:\.self) {
-                                Text("\($0)")
-                            }
+                if !hideForm{
+                    Form {
+                        Section {
+                            Stepper("\(x)", value:$x,in:2...12)
+                            Stepper("\(y)", value:$y,in:2...12)
+                        }header: {
+                            Text("Multiplication tables")
                         }
-                    }header: {
-                        Text("practice times")
-                    }
-                    
-                    Button("Start") {
-                        startGame()
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    
-                }
-                
-                Form {
-                    Section{
-                        Text("Progress rate:\(currentCount)/20")
-                    }
-                    
-                    Section{
-
-                        Text("\(a) * \(b)")
-                    }
-                
-                    Section{
                         
-                        ForEach(arr, id: \.self) { number in
-                            
-                            Button("\(number)") {
-                                
-                                if number == answer {
-                                    score += 1
+                        Section {
+                            Picker("Select practice times", selection: $defaultCount) {
+                                ForEach(times,id:\.self) {
+                                    Text("\($0)")
                                 }
-                                
                             }
-                            .foregroundColor(.black)
+                        }header: {
+                            Text("Practice times")
                         }
-                    }
-                    
-                    Section{
                         
-                        Button("Next") {
-                        
+                        Button("Start") {
+                            hideForm = true
                             startGame()
                         }
-                    }
-                    
-                    Section{
+                        .frame(maxWidth: .infinity, alignment: .center)
                         
-                        Text("score: \(score)")
                     }
-
+                }
+                
+                if hideForm {
+                    Form {
+                        Section{
+                            Text("Progress : \(currentCount)/\(defaultCount)")
+                        }
+                        
+                        Section{
+                            
+                            Text("\(a) * \(b)")
+                        }header: {
+                            Text("question")
+                        }
+                        
+                        Section{
+                            
+                            ForEach(arr, id: \.self) { number in
+                                
+                                Button("\(number)") {
+                                    if number == answer {
+                                        score += 1
+                                    }
+                                    startGame()
+                                }
+                            }
+                        }header: {
+                            Text("select answer")
+                        }
+                        
+                        Section{
+                            
+                            Text("score: \(score)")
+                        }
+                        
+                    }
+                    .alert("Done", isPresented: $showAlert) {
+                        Button("OK") {
+                            hideForm = false
+                            currentCount = 0
+                            defaultCount = 5
+                            score = 0
+                        }
+                    }message: {
+                        Text("Do you want to restart")
+                    }
                 }
                 
             }
@@ -101,6 +111,7 @@ struct ContentView: View {
     func startGame() {
         
         if(currentCount >= defaultCount){
+            showAlert = true
             return
         }
         
