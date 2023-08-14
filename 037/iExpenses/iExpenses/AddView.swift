@@ -15,6 +15,7 @@ struct AddView: View {
     let types = ["Business","Personal"]
     
     @ObservedObject var expenses: Expense
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView{
@@ -35,7 +36,7 @@ struct AddView: View {
                 Button("Save") {
                     let item = ExpenseItem(name: name, type: type, amount: amount)
                     expenses.items.append(item)
-                    
+                    dismiss()
                 }
             }
         }
