@@ -15,6 +15,7 @@ struct ExpenseItem :Identifiable,Codable{
 }
 
 class Expense: ObservableObject {
+    
     @Published var items = [ExpenseItem](){
         didSet {
             
@@ -35,6 +36,9 @@ class Expense: ObservableObject {
     }
 }
 
+
+
+
 struct ContentView: View {
     
     @StateObject var expenses = Expense()
@@ -44,18 +48,47 @@ struct ContentView: View {
         
         NavigationView{
             List {
-                ForEach(expenses.items) { item in
-                    HStack{
-                        VStack(alignment: .leading) {
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
+                
+                Section{
+                    ForEach(expenses.items) { item in
+                        if item.type == "Personal" {
+                            HStack{
+                                VStack(alignment: .leading) {
+                                    Text(item.name)
+                                        .font(.headline)
+                                    Text(item.type)
+                                }
+                                Spacer()
+                                Text(item.amount, format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
+                                    .foregroundColor(setColor(amount: item.amount))
+                            }
                         }
-                        Spacer()
-                        Text(item.amount, format: .currency(code: "USD"))
                     }
+                    .onDelete(perform: removeItems(at:))
+                }header: {
+                    Text("Personal")
                 }
-                .onDelete(perform: removeItems(at:))
+                
+                
+                Section{
+                    ForEach(expenses.items) { item in
+                        if item.type == "Business" {
+                            HStack{
+                                VStack(alignment: .leading) {
+                                    Text(item.name)
+                                        .font(.headline)
+                                    Text(item.type)
+                                }
+                                Spacer()
+                                Text(item.amount, format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
+                                    .foregroundColor(setColor(amount: item.amount))
+                            }
+                        }
+                    }
+                    .onDelete(perform: removeItems(at:))
+                }header: {
+                    Text("Bussiness")
+                }
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -73,6 +106,19 @@ struct ContentView: View {
     
     func removeItems(at offsets:IndexSet) {
         expenses.items.remove(atOffsets: offsets)
+    }
+    
+    func setColor(amount:Double) -> Color {
+        
+        var color = Color(.clear)
+        if amount <= 10 {
+            color = .blue
+        }else if amount <= 100 {
+            color = .yellow
+        }else {
+            color = .green
+        }
+        return color
     }
     
 }
