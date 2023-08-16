@@ -36,6 +36,43 @@ class Expense: ObservableObject {
     }
 }
 
+struct InfoCell:ViewModifier {
+    
+    var item:ExpenseItem
+    func body(content: Content) -> some View {
+        HStack{
+            VStack(alignment: .leading) {
+                Text(item.name)
+                    .font(.headline)
+                Text(item.type)
+            }
+            Spacer()
+            Text(item.amount, format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
+                .foregroundColor(setColor(amount: item.amount))
+        }
+    }
+    
+    func setColor(amount:Double) -> Color {
+        
+        var color = Color(.clear)
+        if amount <= 10 {
+            color = .blue
+        }else if amount <= 100 {
+            color = .yellow
+        }else {
+            color = .green
+        }
+        return color
+    }
+}
+
+extension View {
+    
+    func createCell(item:ExpenseItem) -> some View {
+        
+        modifier(InfoCell(item: item))
+    }
+}
 
 
 
@@ -52,16 +89,8 @@ struct ContentView: View {
                 Section{
                     ForEach(expenses.items) { item in
                         if item.type == "Personal" {
-                            HStack{
-                                VStack(alignment: .leading) {
-                                    Text(item.name)
-                                        .font(.headline)
-                                    Text(item.type)
-                                }
-                                Spacer()
-                                Text(item.amount, format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
-                                    .foregroundColor(setColor(amount: item.amount))
-                            }
+                            Color.blue
+                                .createCell(item: item)
                         }
                     }
                     .onDelete(perform: removeItems(at:))
