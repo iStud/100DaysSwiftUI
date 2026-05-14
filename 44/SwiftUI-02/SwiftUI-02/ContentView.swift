@@ -9,23 +9,36 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let food = ["薯条","汉堡","可乐","蛋挞","披萨"]
-    @State private  var selectedFood : String?
+    let food = Food.examples
+    @State private  var selectedFood : Food?
     
     var body: some View {
         VStack(spacing: 30) {
-            Image("dinner")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+            if(selectedFood != .none){
+                Text(selectedFood!.image)
+                    .font(.system(size: 200))
+                    .minimumScaleFactor(0.1)
+                    .lineLimit(1)
+                    .frame(height: 250)
+                    .border(.red)
+                
+            }else{
+                Image("dinner")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 250)
+            }
             Text("今天吃什么？")
                 .bold()
             
             if(selectedFood != .none){
-                Text(selectedFood ?? "")
+                Text(selectedFood!.name)
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(.green)
             }
+            
+            Spacer()
             
             Button {
                 // 从数组中随机选择一个与当前选项不同的食物 。
@@ -35,7 +48,6 @@ struct ContentView: View {
             }
             .padding(.bottom,-15)
             
-            
             Button {
                 selectedFood = .none
             } label: {
@@ -44,7 +56,7 @@ struct ContentView: View {
             
         }
         .padding()
-        .frame(maxHeight: .infinity)
+        .frame(maxWidth:.infinity, maxHeight: .infinity)
         .background(Color(.secondarySystemBackground))
         .font(.title)
         .buttonStyle(.borderedProminent)
