@@ -11,6 +11,7 @@ struct ContentView: View {
     
     let food = Food.examples
     @State private  var selectedFood : Food?
+    @State  var showInfo : Bool
     
     var body: some View {
         VStack(spacing: 30) {
@@ -32,11 +33,41 @@ struct ContentView: View {
                 .bold()
             
             if(selectedFood != .none){
-                Text(selectedFood!.name)
-                    .font(.largeTitle)
-                    .bold()
-                    .foregroundColor(.green)
+                HStack(){
+                    Text(selectedFood!.name)
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundColor(.green)
+                    Button{
+                        showInfo.toggle()
+                    }label: {
+                        Image(systemName: "info.circle.fill")
+                            .foregroundColor(.secondary)
+                    }.buttonStyle(.plain)
+                }
+                Text("热量\(selectedFood!.calorie.formatted())大卡")
+
             }
+            if showInfo{
+                Grid(horizontalSpacing: 12,verticalSpacing: 12){
+                    GridRow() {
+                        Text("蛋白质")
+                        Text("脂肪")
+                        Text("碳水")
+                    }.frame(minWidth: 60)
+                    
+                    GridRow() {
+                        Text("123")
+                        Text("123")
+                        Text("123")
+                    }
+                }
+                .font(.title3)
+                .padding(.horizontal)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color(.systemBackground)))
+            }
+            
             
             Spacer()
             
@@ -68,5 +99,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(showInfo: false)
 }
